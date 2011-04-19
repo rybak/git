@@ -1,0 +1,5 @@
+t5500.12 "fetch same depth in shallow repo" reproducibly hangs[1] on
+the HURD without this patch and passes with it.  I had just assumed it
+was some weird hurd thing.  Thanks for figuring it out.
+
+Tested-by: Jonathan Nieder <jrnieder@gmail.com>

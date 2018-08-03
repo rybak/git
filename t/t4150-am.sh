@@ -82,6 +82,19 @@ test_expect_success 'setup: messages' '
 
 	EOF
 
+	cat >unicode-scissors-msg <<-\EOF &&
+	Test git-am with unicode scissors line
+
+	This line should be included in the commit message.
+	EOF
+
+	cat - unicode-scissors-msg >unicode-no-scissors-msg <<-\EOF &&
+	This line should not be included in the commit message with --scissors enabled.
+
+	 - - ✂ - - remove everything above this line - - ✂ - -
+
+	EOF
+
 	signoff="Signed-off-by: $GIT_COMMITTER_NAME <$GIT_COMMITTER_EMAIL>"
 '
 
@@ -160,6 +173,13 @@ test_expect_success setup '
 	git commit -F no-scissors-msg &&
 	git tag no-scissors &&
 	git format-patch --stdout no-scissors^ >no-scissors-patch.eml &&
+	git reset --hard HEAD^ &&
+
+	echo unicode-scissors-file >unicode-scissors-file &&
+	git add unicode-scissors-file &&
+	git commit -F unicode-scissors-msg &&
+	git tag unicode-scissors &&
+	git format-patch --stdout unicode-scissors^ >unicode-scissors-patch.eml &&
 	git reset --hard HEAD^ &&
 
 	sed -n -e "3,\$p" msg >file &&
@@ -431,6 +451,16 @@ test_expect_success 'am --no-scissors overrides mailinfo.scissors' '
 	test_path_is_missing .git/rebase-apply &&
 	git diff --exit-code no-scissors &&
 	test_cmp_rev no-scissors HEAD
+'
+
+test_expect_success 'am --scissors cuts the message at unicode scissors' '
+	rm -fr .git/rebase-apply &&
+	git reset --hard &&
+	git checkout second &&
+	git am --scissors unicode-scissors-patch.eml &&
+	test_path_is_missing .git/rebase-apply &&
+	git diff --exit-code unicode-scissors &&
+	test_cmp_rev unicode-scissors HEAD
 '
 
 test_expect_success 'setup: new author and committer' '

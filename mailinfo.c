@@ -683,7 +683,8 @@ static int is_scissors_line(const char *line)
 			continue;
 		}
 		if ((!memcmp(c, ">8", 2) || !memcmp(c, "8<", 2) ||
-		     !memcmp(c, ">%", 2) || !memcmp(c, "%<", 2))) {
+		     !memcmp(c, ">%", 2) || !memcmp(c, "%<", 2)) ||
+		     !memcmp(c, "✂", 3)) {
 			in_perforation = 1;
 			perforation += 2;
 			scissors += 2;

@@ -55,7 +55,7 @@ static void range_set_move(struct range_set *dst, struct range_set *src)
 	src->alloc = src->nr = 0;
 }
 
-/* tack on a _new_ range _at the end_ */
+/* tack on a _new_ range [a,b) _at the end_ */
 void range_set_append_unsafe(struct range_set *rs, long a, long b)
 {
 	assert(a <= b);
@@ -355,7 +355,7 @@ static void dump_range_set(struct range_set *rs, const char *desc)
 	int i;
 	printf("range set %s (%d items):\n", desc, rs->nr);
 	for (i = 0; i < rs->nr; i++)
-		printf("\t[%ld,%ld]\n", rs->ranges[i].start, rs->ranges[i].end);
+		printf("\t[%ld,%ld)\n", rs->ranges[i].start, rs->ranges[i].end);
 }
 
 static void dump_line_log_data(struct line_log_data *r)
@@ -375,7 +375,7 @@ static void dump_diff_ranges(struct diff_ranges *diff, const char *desc)
 	printf("diff ranges %s (%d items):\n", desc, diff->parent.nr);
 	printf("\tparent\ttarget\n");
 	for (i = 0; i < diff->parent.nr; i++) {
-		printf("\t[%ld,%ld]\t[%ld,%ld]\n",
+		printf("\t[%ld,%ld)\t[%ld,%ld)\n",
 		       diff->parent.ranges[i].start,
 		       diff->parent.ranges[i].end,
 		       diff->target.ranges[i].start,

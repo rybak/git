@@ -6,7 +6,7 @@
 struct rev_info;
 struct commit;
 
-/* A range [start,end].  Lines are numbered starting at 0, and the
+/* A range [start,end).  Lines are numbered starting at 0, and the
  * ranges include start but exclude end. */
 struct range {
 	long start, end;

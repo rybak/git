@@ -701,6 +701,13 @@ static int is_scissors_line(const char *line)
 			c++;
 			continue;
 		}
+		if (starts_with(c, "\xE2\x9C\x82" /* U-2702 ✂ in UTF-8 */)) {
+			in_perforation = 1;
+			perforation += 3;
+			scissors += 3;
+			c += 2;
+			continue;
+		}
 		in_perforation = 0;
 	}
 

@@ -701,6 +701,13 @@ static int is_scissors_line(const char *line)
 			c++;
 			continue;
 		}
+		if (!memcmp(c, "✂", 3)) {
+			in_perforation = 1;
+			perforation += 3;
+			scissors += 3;
+			c++;
+			continue;
+		}
 		in_perforation = 0;
 	}
 

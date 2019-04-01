@@ -77,10 +77,18 @@ test_expect_success 'setup: messages' '
 
 	printf "Subject: " >subject-prefix &&
 
-	cat - subject-prefix msg-without-scissors-line >msg-with-scissors-line <<-\EOF
+	cat - subject-prefix msg-without-scissors-line >msg-with-scissors-line <<-\EOF &&
 	This line should not be included in the commit message with --scissors enabled.
 
 	 - - >8 - - remove everything above this line - - >8 - -
+
+	EOF
+
+	cat - subject-prefix msg-without-scissors-line >msg-with-unicode-scissors <<-\EOF
+	Lines above unicode scissors line should not be included in the commit
+	message with --scissors enabled.
+
+	- - - ✂ - - - ✂ - - -
 
 	EOF
 '
@@ -159,6 +167,12 @@ test_expect_success setup '
 	git commit -F msg-with-scissors-line &&
 	git tag expected-for-no-scissors &&
 	git format-patch --stdout expected-for-no-scissors^ >patch-with-scissors-line.eml &&
+	git reset --hard HEAD^ &&
+
+	echo file >file &&
+	git add file &&
+	git commit -F msg-with-unicode-scissors &&
+	git format-patch --stdout HEAD^ >patch-with-unicode-scissors.eml &&
 	git reset --hard HEAD^ &&
 
 	sed -n -e "3,\$p" msg >file &&
@@ -416,6 +430,16 @@ test_expect_success 'am --scissors cuts the message at the scissors line' '
 	git reset --hard &&
 	git checkout second &&
 	git am --scissors patch-with-scissors-line.eml &&
+	test_path_is_missing .git/rebase-apply &&
+	git diff --exit-code expected-for-scissors &&
+	test_cmp_rev expected-for-scissors HEAD
+'
+
+test_expect_success 'am --scissors cuts the message at the unicode scissors line' '
+	rm -fr .git/rebase-apply &&
+	git reset --hard &&
+	git checkout second &&
+	git am --scissors patch-with-unicode-scissors.eml &&
 	test_path_is_missing .git/rebase-apply &&
 	git diff --exit-code expected-for-scissors &&
 	test_cmp_rev expected-for-scissors HEAD

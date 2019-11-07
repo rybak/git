@@ -1669,6 +1669,19 @@ int cmd_rebase(int argc, const char **argv, const char *prefix)
 			trace2_cmd_mode(action_names[action]);
 	}
 
+	for (i = 0; i < exec.nr; i++)
+		if (check_exec_cmd(exec.items[i].string))
+			exit(1);
+
+	if (exec.nr) {
+		imply_merge(&options, "--exec");
+
+		strbuf_reset(&buf);
+		for (i = 0; i < exec.nr; i++)
+			strbuf_addf(&buf, "exec %s\n", exec.items[i].string);
+		options.cmd = xstrdup(buf.buf);
+	}
+
 	switch (action) {
 	case ACTION_CONTINUE: {
 		struct object_id head;
@@ -1812,10 +1825,6 @@ int cmd_rebase(int argc, const char **argv, const char *prefix)
 		}
 	}
 
-	for (i = 0; i < exec.nr; i++)
-		if (check_exec_cmd(exec.items[i].string))
-			exit(1);
-
 	if (!(options.flags & REBASE_NO_QUIET))
 		argv_array_push(&options.git_am_opts, "-q");
 
@@ -1825,15 +1834,6 @@ int cmd_rebase(int argc, const char **argv, const char *prefix)
 	if (gpg_sign) {
 		free(options.gpg_sign_opt);
 		options.gpg_sign_opt = xstrfmt("-S%s", gpg_sign);
-	}
-
-	if (exec.nr) {
-		imply_merge(&options, "--exec");
-
-		strbuf_reset(&buf);
-		for (i = 0; i < exec.nr; i++)
-			strbuf_addf(&buf, "exec %s\n", exec.items[i].string);
-		options.cmd = xstrdup(buf.buf);
 	}
 
 	if (rebase_merges) {

@@ -299,6 +299,17 @@ static void split_exec_commands(const char *cmd, struct string_list *commands)
 	}
 }
 
+static int add_exec(const char *cmd)
+{
+	struct string_list commands = STRING_LIST_INIT_DUP;
+	int ret;
+
+	split_exec_commands(cmd, &commands);
+	ret = add_exec_commands(&commands);
+	string_list_clear(&commands, 0);
+	return ret;
+}
+
 static int do_interactive_rebase(struct rebase_options *opts, unsigned flags)
 {
 	int ret;
@@ -420,11 +431,7 @@ static int run_rebase_interactive(struct rebase_options *opts,
 		ret = rearrange_squash_in_todo_file();
 		break;
 	case ACTION_ADD_EXEC: {
-		struct string_list commands = STRING_LIST_INIT_DUP;
-
-		split_exec_commands(opts->cmd, &commands);
-		ret = add_exec_commands(&commands);
-		string_list_clear(&commands, 0);
+		ret = add_exec(opts->cmd);
 		break;
 	}
 	default:

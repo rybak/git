@@ -1157,6 +1157,32 @@ test_expect_success 'rebase --edit-todo can be used to modify todo' '
 	test L = $(git cat-file commit HEAD | sed -ne \$p)
 '
 
+test_expect_success 'rebase --edit-todo can be used with -x' '
+	test_when_finished "reset_rebase && git checkout master" &&
+	git reset --hard &&
+	git checkout no-conflict-branch^0 &&
+	cat >expected <<-EOF &&
+	pick $(git rev-list --abbrev-commit -1 HEAD^) L
+	exec git show HEAD
+	pick $(git rev-list --abbrev-commit -1 HEAD) M
+	exec git show HEAD
+	EOF
+	set_fake_editor &&
+	FAKE_LINES="1 edit 2 3 4" git rebase -i HEAD~4 &&
+	set_cat_todo_editor &&
+	test_must_fail git rebase --edit-todo -x "git show HEAD" >actual &&
+	test_cmp expected actual
+'
+
+test_expect_failure 'rebase --edit-todo -x does not allow other arguments' '
+	test_when_finished "reset_rebase && git checkout master" &&
+	git reset --hard &&
+	git checkout no-conflict-branch^0 &&
+	set_fake_editor &&
+	FAKE_LINES="1 edit 2 3 4" git rebase -i HEAD~4 &&
+	test_must_fail git rebase --edit-todo -x "git show HEAD" --autostash
+'
+
 test_expect_success 'rebase -i produces readable reflog' '
 	git reset --hard &&
 	git branch -f branch-reflog-test H &&

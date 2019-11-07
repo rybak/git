@@ -33,7 +33,8 @@ static char const * const builtin_rebase_usage[] = {
 		"[--onto <newbase> | --keep-base] [<upstream> [<branch>]]"),
 	N_("git rebase [-i] [options] [--exec <cmd>] [--onto <newbase>] "
 		"--root [<branch>]"),
-	N_("git rebase --continue | --abort | --skip | --edit-todo"),
+	N_("git rebase --continue | --abort | --skip | "
+		"--edit-todo [--exec <cmd>]"),
 	NULL
 };
 
@@ -417,6 +418,11 @@ static int run_sequencer_rebase(struct rebase_options *opts,
 		break;
 	}
 	case ACTION_EDIT_TODO:
+		if (opts->cmd) {
+			ret = add_exec(opts->cmd);
+			if (ret)
+				break;
+		}
 		ret = edit_todo_file(flags);
 		break;
 	case ACTION_SHOW_CURRENT_PATCH: {
@@ -1639,12 +1645,16 @@ int cmd_rebase(int argc, const char **argv, const char *prefix)
 			     builtin_rebase_options,
 			     builtin_rebase_usage, 0);
 
-	if (action != ACTION_NONE && total_argc != 2) {
+	if (action != ACTION_NONE && action != ACTION_EDIT_TODO &&
+	    total_argc != 2)
 		usage_with_options(builtin_rebase_usage,
 				   builtin_rebase_options);
-	}
 
 	if (argc > 2)
+		usage_with_options(builtin_rebase_usage,
+				   builtin_rebase_options);
+
+	if (action == ACTION_EDIT_TODO && argc > 0)
 		usage_with_options(builtin_rebase_usage,
 				   builtin_rebase_options);
 

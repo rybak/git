@@ -1,0 +1,4 @@
+Still need better validation of options. With current implementation, the
+following is not rejected:
+
+    git rebase --edit-todo -x git show HEAD --onto master

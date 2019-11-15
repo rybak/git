@@ -1828,8 +1828,6 @@ int cmd_rebase(int argc, const char **argv, const char *prefix)
 	}
 
 	if (exec.nr) {
-		int i;
-
 		imply_merge(&options, "--exec");
 
 		strbuf_reset(&buf);
@@ -1850,8 +1848,6 @@ int cmd_rebase(int argc, const char **argv, const char *prefix)
 	}
 
 	if (strategy_options.nr) {
-		int i;
-
 		if (!options.strategy)
 			options.strategy = "recursive";
 

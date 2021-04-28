@@ -248,7 +248,7 @@ to pass to the server. Likewise, different lines in the configuration files
 must be used for each option.
 
 --smtp-ssl::
-	Legacy alias for '--smtp-encryption ssl'.
+	Legacy alias for `--smtp-encryption ssl`.
 
 --smtp-ssl-cert-path::
 	Path to a store of trusted CA certificates for SMTP SSL/TLS

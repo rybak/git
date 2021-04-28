@@ -130,7 +130,7 @@ gitk-specific options
 --select-commit=<ref>::
 
 	Select the specified commit after loading the graph.
-	Default behavior is equivalent to specifying '--select-commit=HEAD'.
+	Default behavior is equivalent to specifying `--select-commit=HEAD`.
 
 Examples
 --------

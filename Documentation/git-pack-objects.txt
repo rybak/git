@@ -279,16 +279,16 @@ So does `git bundle` (see linkgit:git-bundle[1]) when it creates a bundle.
 	A debug option to help with future "partial clone" development.
 	This option specifies how missing objects are handled.
 +
-The form '--missing=error' requests that pack-objects stop with an error if
+The form `--missing=error` requests that pack-objects stop with an error if
 a missing object is encountered.  If the repository is a partial clone, an
 attempt to fetch missing objects will be made before declaring them missing.
 This is the default action.
 +
-The form '--missing=allow-any' will allow object traversal to continue
+The form `--missing=allow-any` will allow object traversal to continue
 if a missing object is encountered.  No fetch of a missing object will occur.
 Missing objects will silently be omitted from the results.
 +
-The form '--missing=allow-promisor' is like 'allow-any', but will only
+The form `--missing=allow-promisor` is like 'allow-any', but will only
 allow object traversal to continue for EXPECTED promisor missing objects.
 No fetch of a missing object will occur.  An unexpected missing object will
 raise an error.

@@ -6,7 +6,7 @@
 	'full', 'fuller', 'reference', 'email', 'raw', 'format:<string>'
 	and 'tformat:<string>'.  When '<format>' is none of the above,
 	and has '%placeholder' in it, it acts as if
-	'--pretty=tformat:<format>' were given.
+	`--pretty=tformat:<format>` were given.
 +
 See the "PRETTY FORMATS" section for some additional details for each
 format.  When '=<format>' part is omitted, it defaults to 'medium'.

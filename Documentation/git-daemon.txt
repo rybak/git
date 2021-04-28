@@ -55,14 +55,14 @@ OPTIONS
 --base-path=<path>::
 	Remap all the path requests as relative to the given path.
 	This is sort of "Git root" - if you run 'git daemon' with
-	'--base-path=/srv/git' on example.com, then if you later try to pull
+	`--base-path=/srv/git` on example.com, then if you later try to pull
 	'git://example.com/hello.git', 'git daemon' will interpret the path
 	as `/srv/git/hello.git`.
 
 --base-path-relaxed::
-	If --base-path is enabled and repo lookup fails, with this option
+	If `--base-path` is enabled and repo lookup fails, with this option
 	'git daemon' will attempt to lookup without prefixing the base path.
-	This is useful for switching to --base-path usage, while still
+	This is useful for switching to `--base-path` usage, while still
 	allowing the old paths.
 
 --interpolated-path=<pathtemplate>::

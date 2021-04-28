@@ -481,7 +481,7 @@ The full syntax for a p4 view is documented in 'p4 help views'.  'git p4'
 knows only a subset of the view syntax.  It understands multi-line
 mappings, overlays with '+', exclusions with '-' and double-quotes
 around whitespace.  Of the possible wildcards, 'git p4' only handles
-'...', and only when it is at the end of the path.  'git p4' will complain
+`...`, and only when it is at the end of the path.  'git p4' will complain
 if it encounters an unhandled wildcard.
 
 Bugs in the implementation of overlap mappings exist.  If multiple depot

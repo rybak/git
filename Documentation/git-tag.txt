@@ -169,7 +169,7 @@ This option is only applicable when listing tags without annotation lines.
 
 -F <file>::
 --file=<file>::
-	Take the tag message from the given file.  Use '-' to
+	Take the tag message from the given file.  Use `-` to
 	read the message from the standard input.
 	Implies `-a` if none of `-a`, `-s`, or `-u <keyid>`
 	is given.

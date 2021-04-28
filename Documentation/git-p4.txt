@@ -560,27 +560,27 @@ They all are in the 'git-p4' section.
 General variables
 ~~~~~~~~~~~~~~~~~
 git-p4.user::
-	User specified as an option to all p4 commands, with '-u <user>'.
+	User specified as an option to all p4 commands, with `-u <user>`.
 	The environment variable `P4USER` can be used instead.
 
 git-p4.password::
 	Password specified as an option to all p4 commands, with
-	'-P <password>'.
+	`-P <password>`.
 	The environment variable `P4PASS` can be used instead.
 
 git-p4.port::
 	Port specified as an option to all p4 commands, with
-	'-p <port>'.
+	`-p <port>`.
 	The environment variable `P4PORT` can be used instead.
 
 git-p4.host::
 	Host specified as an option to all p4 commands, with
-	'-h <host>'.
+	`-h <host>`.
 	The environment variable `P4HOST` can be used instead.
 
 git-p4.client::
 	Client specified as an option to all p4 commands, with
-	'-c <client>', including the client spec.
+	`-c <client>`, including the client spec.
 
 git-p4.retries::
 	Specifies the number of times to retry a p4 command (notably,

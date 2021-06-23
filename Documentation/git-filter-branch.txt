@@ -598,7 +598,7 @@ with:
   sensitive files and others which don't.  This comes about in
   multiple different ways:
 
-  ** the default to only doing a partial history rewrite ('--all' is not
+  ** the default to only doing a partial history rewrite (`--all` is not
      the default and few examples show it)
 
   ** the fact that there's no automatic post-run cleanup

@@ -248,22 +248,22 @@ for the same <token>, 'trailer.<token>.cmd' is used and
 trailer.<token>.cmd::
 	This option can be used to specify a shell command that will be called:
 	once to automatically add a trailer with the specified <token>, and then
-	each time a '--trailer <token>=<value>' argument to modify the <value> of
+	each time a `--trailer <token>=<value>` argument to modify the <value> of
 	the trailer that this option would produce.
 +
 When the specified command is first called to add a trailer
 with the specified <token>, the behavior is as if a special
-'--trailer <token>=<value>' argument was added at the beginning
+`--trailer <token>=<value>` argument was added at the beginning
 of the "git interpret-trailers" command, where <value>
 is taken to be the standard output of the command with any
 leading and trailing whitespace trimmed off.
 +
-If some '--trailer <token>=<value>' arguments are also passed
+If some `--trailer <token>=<value>` arguments are also passed
 on the command line, the command is called again once for each
 of these arguments with the same <token>. And the <value> part
 of these arguments, if any, will be passed to the command as its
 first argument. This way the command can produce a <value> computed
-from the <value> passed in the '--trailer <token>=<value>' argument.
+from the <value> passed in the `--trailer <token>=<value>` argument.
 
 EXAMPLES
 --------

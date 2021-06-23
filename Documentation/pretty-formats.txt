@@ -144,7 +144,7 @@ The placeholders are:
 	    on the next placeholders until the color is switched
 	    again.
 '%m':: left (`<`), right (`>`) or boundary (`-`) mark
-'%w([<w>[,<i1>[,<i2>]]])':: switch line wrapping, like the -w option of
+'%w([<w>[,<i1>[,<i2>]]])':: switch line wrapping, like the `-w` option of
 			    linkgit:git-shortlog[1].
 '%<(<N>[,trunc|ltrunc|mtrunc])':: make the next placeholder take at
 				  least N columns, padding spaces on

@@ -308,7 +308,7 @@ changes and commit them, and you can discard any commits you make in this
 state without impacting any branches by performing another switch.
 
 If you want to create a new branch to retain commits you create, you may
-do so (now or later) by using -c with the switch command again. Example:
+do so (now or later) by using `-c` with the switch command again. Example:
 
   git switch -c new_branch_name
 

@@ -243,7 +243,7 @@ instead.
 	Default value can be specified by the `sendemail.smtpServerOption`
 	configuration option.
 +
-The --smtp-server-option option must be repeated for each option you want
+The `--smtp-server-option` option must be repeated for each option you want
 to pass to the server. Likewise, different lines in the configuration files
 must be used for each option.
 

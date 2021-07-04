@@ -400,7 +400,7 @@ static void warn_on_inaccessible(const char *path)
 
 int warn_on_fopen_errors(const char *path)
 {
-	if (errno != ENOENT && errno != ENOTDIR) {
+	if (!is_missing_file_error(errno)) {
 		warn_on_inaccessible(path);
 		return -1;
 	}

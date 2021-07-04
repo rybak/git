@@ -346,7 +346,7 @@ static void show_files(struct repository *repo, struct dir_struct *dir)
 		if (ce_skip_worktree(ce))
 			continue;
 		stat_err = lstat(fullname.buf, &st);
-		if (stat_err && (errno != ENOENT && errno != ENOTDIR))
+		if (stat_err && !is_missing_file_error(errno))
 			error_errno("cannot lstat '%s'", fullname.buf);
 		if (stat_err && show_deleted) {
 			show_ce(repo, dir, ce, fullname.buf, tag_removed);

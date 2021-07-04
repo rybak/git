@@ -458,7 +458,7 @@ int read_oneliner(struct strbuf *buf,
 
 	if (strbuf_read_file(buf, path, 0) < 0) {
 		if ((flags & READ_ONELINER_WARN_MISSING) ||
-		    (errno != ENOENT && errno != ENOTDIR))
+		    !is_missing_file_error(errno))
 			warning_errno(_("could not read '%s'"), path);
 		return 0;
 	}
@@ -2493,7 +2493,7 @@ int sequencer_get_last_command(struct repository *r, enum replay_action *action)
 
 	todo_file = git_path_todo_file();
 	if (strbuf_read_file(&buf, todo_file, 0) < 0) {
-		if (errno == ENOENT || errno == ENOTDIR)
+		if (is_missing_file_error(errno))
 			return -1;
 		else
 			return error_errno("unable to open '%s'", todo_file);
